@@ -10,7 +10,7 @@
     <div class="clock">
       <div class="clock-face">
         <div id="hour-hand"  class="hand hour"></div>
-        <div id="minute-hand" class="hand minute"></div>
+        <div id="min-hand" class="hand minute"></div>
         <div id="second-hand" class="hand second"></div>
         <div class="clock-center"></div>
       </div>
@@ -58,8 +58,8 @@
         height: 0.9rem;
         background-color: #fff;
         border-radius: 50%;
-        left:   46%;
-        top: 46%;
+        left:   45.66%;
+        top: 45.66%;
         position: absolute;
         z-index: 99999;
     }
@@ -85,9 +85,7 @@
   function setDate() { 
       
     const now = new Date();
-    const seconds = now.getSeconds(); 
-      
-   
+    const seconds = now.getSeconds();  
     secondHand.style.transform = `rotate(${( ((seconds / 60) * 360) + 90 )}deg)`;
       
     const mins = now.getMinutes(); 
