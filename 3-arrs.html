@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>3. Cardio</title>
+  <title>3. Cardio, Array methods</title>
 </head>
 <body>
   
@@ -21,12 +21,18 @@
       { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968 },
       { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
     ];
-    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
+      
+    console.log('inventors init value:', inventors);
+      
+    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Keysee, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Zerry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Amba, Tony', 'Blake, William'];
      
-    const fifteen = inventors.filter(inventor => {  
-        return (inventor.year >= 1700 && inventor.year < 1900)
-    };
-    console.log('1700 till 1900  years: ',fifteen);
+    const fifteen = inventors.filter( (inventor) => {  
+        return inventor.year >= 1700 && inventor.year < 1900
+    });
+      
+    
+      
+    console.log('1700 till 1900  years: ', fifteen);
      
     const fullNames = inventors.map((inventor) => {  return `${inventor.first} ${inventor.last}`});
     console.log(' nventor.first + nventor.last', fullNames); 
@@ -43,6 +49,27 @@
       return (lastInventor > nextInventor ) ?  -1 : 1;
     });
     console.log('older', oldest)
+      
+      const orderedByYear = inventors.sort(function(first, next) {
+       if(first.year > next.year) {
+         return 1;
+       } else {
+         return -1;
+       }
+     });
+     console.log('ordered by year', orderedByYear);
+      
+    /* ******* people arr sort ********/
+      
+   const orderByLastName = people.sort((first, next) => {
+      const [aLast, aFirst] = first.split(', ');
+      const [bLast, bFirst] = next.split(', ');
+      console.log(bLast, bFirst )
+      return aLast > bLast ? 1 : -1; //not working: todo need to check
+    });
+    console.log('sort by last name', orderByLastName);
+      
     </script>
+    <center><h1>Please open console for viewing results.</h1></center>
     </body>
 </html>
