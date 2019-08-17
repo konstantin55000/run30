@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Flex Gallery</title>
+  <title>4. Flex Gallery</title>
   <link href="https://fonts.googleapis.com/css?family=Heebo:300,400&display=swap" rel="stylesheet">
+  
 <body>
   <style>
     html {
       box-sizing: border-box;
-      background: #ffc600;
+      background: #000;
       font-family: 'Heebo Light', 'Helvetica Neue', Helvetica, sans-serif;
       font-size: 62.5%;
       font-weight: 200;
@@ -28,7 +29,7 @@
       display: flex;
     }
     .panel {
-      background: #6B0F9C;
+      background: goldenrod;
       box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
       color: white;
       text-align: center;
@@ -82,6 +83,7 @@
         font-size: 8rem;
         text-transform: uppercase; 
     }
+      
     @media only screen and (max-width: 600px) {
         .panel p {
             font-size: 1rem;
@@ -99,36 +101,53 @@
 
   <div class="panels">
     <div class="panel panel1">
-      <p>Real</p>
-      <p>Let's</p>
+      <p>Start</p>
+      <p>Being</p>
       <p>Circle-Dance</p>
     </div>
     <div class="panel panel2">
-      <p>Give 0.5</p>
-      <p>Take O.5</p>
-      <p>Receive One</p>
+      <p>Take White 0.5</p>
+      <p>The One</p>
+      <p>Give Black 0.5</p>
     </div> 
     <div class="panel panel5">
       <p>Energy is moving.</p>
-      <p>In</p>
+      <p>Moving is life</p>
       <p>Life is energy.</p>
     </div>
     <div class="panel panel4">
-      <p>Give</p>
-      <p>Much</p>
-      <p>Take slightly more.</p>
+      <p>Take from people</p>
+      <p>Give to people</p>
+      <p>Remain .</p>
     </div> 
       <div class="panel panel3">
-      <p>Right</p>
-      <p>Center</p>
-      <p>Left</p>
+      <p>include Right</p>
+      <p>Choose Middle</p>
+      <p>include Left</p>
     </div>
   </div>
 
   <script>
     const panels = document.querySelectorAll('.panel'); 
-    panels.forEach(panel => panel.addEventListener('click', (e)=>{e.this.classList.toggle('open');} ));
-    panels.forEach(panel => panel.addEventListener('transitionend',  (e)=>{e.this.classList.toggle('open-active')} ));
+    const openPanel = (e) =>  {
+       this.classList.toggle('open');
+    }
+    const closeThisPanel = (e) =>  {
+        this.classList.toggle('open-active');
+    }
+    
+    panels.forEach( (panel) => {
+        //alert(panel);
+            panel.addEventListener('click', () => openPanel);
+    });
+    
+
+    panels.forEach(
+        (panel) => {
+            //alert('panel close');
+           panel.addEventListener('transitionend',  () => closeThisPanel )
+        }
+    );
   </script>
 
 </body>
