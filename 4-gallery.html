@@ -79,8 +79,8 @@
       font-size: 2rem;
     }
      
-    .panel.open > p:nth-child(2) {      
-        font-size: 8rem;
+    .panel > p:nth-child(2) {      
+/*        font-size: 8rem;*/
         text-transform: uppercase; 
     }
       
@@ -129,25 +129,29 @@
 
   <script>
     const panels = document.querySelectorAll('.panel'); 
-    const openPanel = (e) =>  {
-       this.classList.toggle('open');
+    function openPanel() {
+       this.classList.toggle('open'); //this from function?
     }
-    const closeThisPanel = (e) =>  {
+    function closeThisPanel() {
         this.classList.toggle('open-active');
     }
     
     panels.forEach( (panel) => {
         //alert(panel);
-            panel.addEventListener('click', () => openPanel);
+         panel.addEventListener('click', openPanel);
+         panel.addEventListener('transitionend', closeThisPanel);
     });
-    
 
-    panels.forEach(
-        (panel) => {
-            //alert('panel close');
-           panel.addEventListener('transitionend',  () => closeThisPanel )
-        }
-    );
+  function openIt(){
+     this.classList.toggle('open');
+  }
+      
+  function transIt(e){
+    if(e.propertyName.includes('flex')) {
+        this.classList.toggle('open-active');
+    }
+  }
+ 
   </script>
 
 </body>
