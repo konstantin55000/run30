@@ -59,16 +59,27 @@
      });
      console.log('ordered by year', orderedByYear);
       
-    /* ******* people arr sort ********/
+    /* ******* people for First name arr sort ********/
       
    const orderByLastName = people.sort((first, next) => {
-      const [aLast, aFirst] = first.split(', ');
-      const [bLast, bFirst] = next.split(', ');
-      console.log(bLast, bFirst )
+      const [aLast] = first.split(', ')[0];
+      const [bLast] = next.split(', ')[0];
+     
       return aLast > bLast ? 1 : -1; //not working: todo need to check
     });
     console.log('sort by last name', orderByLastName);
       
+      
+   /* ******* arr reduce ********/
+const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+const transport = data.reduce((obj, item) => {
+  if (!obj[item])
+      obj[item] = 0;
+      obj[item]++;
+      return obj;
+    }, {});
+    
+      console.log('reduce transporte array', transport);
     </script>
     <center><h1>Please open console for viewing results.</h1></center>
     </body>
