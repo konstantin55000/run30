@@ -8,9 +8,9 @@
   
   <script> 
     const inventors = [
-      { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+      { first: 'Albert', last: 'Einstein', year: 1879, passed: 1 },
       { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
-      { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
+      { first: 'Galileo', last: 'Galilei', year: 1564, passed: 2 },
       { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
       { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
       { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
@@ -26,12 +26,16 @@
       
     const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Keysee, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Zerry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Amba, Tony', 'Blake, William'];
      
-    const fifteen = inventors.filter( (inventor) => {  
-        return inventor.year >= 1700 && inventor.year < 1900
-    });
       
-    
+   
+
+     let fifteen = inventors.filter(item => (1700 <= item.year && item.year <= 1900));
       
+//      
+//    const fifteen = inventors.filter( (inventor) => {  
+//        return inventor.year >= 1700 && inventor.year < 1900
+//    });
+       
     console.log('1700 till 1900  years: ', fifteen);
      
     const fullNames = inventors.map((inventor) => {  return `${inventor.first} ${inventor.last}`});
@@ -50,14 +54,15 @@
     });
     console.log('older', oldest)
       
-      const orderedByYear = inventors.sort(function(first, next) {
-       if(first.year > next.year) {
-         return 1;
-       } else {
-         return -1;
-       }
-     });
-     console.log('ordered by year', orderedByYear);
+      
+    const orderByYearAsc = (a, b) =>{
+      if (a.year > b.year) return 1;
+      if (a.year == b.year) return 0;
+      if (a.year < b.year) return -1;
+    }
+      
+    const orderedByYear = inventors.sort(orderByYearAsc);  //order
+    console.table('ordered by year', orderedByYear);
       
     /* ******* people for First name arr sort ********/
       
@@ -71,14 +76,8 @@
       
       
    /* ******* arr reduce ********/
-const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-const transport = data.reduce((obj, item) => {
-  if (!obj[item])
-      obj[item] = 0;
-      obj[item]++;
-      return obj;
-    }, {});
-    
+      //@TODO: array reduce need re-doing
+      
       console.log('reduce transporte array', transport);
     </script>
     <center><h1>Please open console for viewing results.</h1></center>
