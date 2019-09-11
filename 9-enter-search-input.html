@@ -86,7 +86,7 @@ span.population {
 <div class="wrapper">
   <form class="search-form">
     <input type="text" id="searchInput" class="search" placeholder="City or State">
-    <ul  id="suggestions" class="suggestions">
+    <ul id="suggestions" class="suggestions">
       <li>Filter for a city</li>
       <li>or a state</li>
     </ul>
@@ -96,13 +96,13 @@ span.population {
 <script>
 
 const jsonUrl = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
-//const cities = [];
+let cities = [];
 
 (async function fetchCities(url) {
   let response = await fetch(url);
-  let cities = await response.json();
+ cities = await response.json();
 
- console.log('fetched ', cities);
+// console.log('fetched rows ', cities);
 })(jsonUrl);
 
 
@@ -117,15 +117,19 @@ function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); //copy pasted regex
 }
 function displayMatches() {
-  console.log('**filtered**');
+  console.log('**filtered**'); 
   const foundValueArr = findMatches(this.value, cities);
-  console.table('foundValueArray', foundValueArr);
+  console.log('foundValueArray', foundValueArr);
   //todo: filter mateched array and out put
 }
+    
+    
 const searchInput = document.querySelector('#searchInput');
+console.log(searchInput);    
 const suggestions = document.querySelector('#suggestions');
-
-searchInput.addEventListener('onkeypress ', displayMatches);
+searchInput.onkeydown = displayMatches;
+ 
 </script>
-  </body>
+
+</body>
 </html>
