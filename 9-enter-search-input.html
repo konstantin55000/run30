@@ -62,12 +62,12 @@ input.search {
 }
 
 .suggestions li:nth-child(even) {
-  /*transform: perspective(100px) rotateX(3deg) translateY(2px) scale(1.001);*/
+   
   background: linear-gradient(to bottom,  #ffffff 0%,#EFEFEF 100%);
 }
 
 .suggestions li:nth-child(odd) {
-  /*transform: perspective(100px) rotateX(-3deg) translateY(3px);*/
+   
   background: linear-gradient(to top,  #ffffff 0%,#EFEFEF 100%);
 }
 
@@ -100,74 +100,47 @@ let cities = [];
 
 (async function fetchCities(url) {
   let response = await fetch(url);
- cities = await response.json();
-
+  cities = await response.json(); 
 // console.log('fetched rows ', cities);
+    
+    //add event listeners when forws are aloready fetched
+    const searchInput = document.querySelector('#searchInput');
+    console.log(searchInput);
+    const suggestions = document.querySelector('#suggestions');
+    searchInput.onkeydown = displayMatches;
+    
 })(jsonUrl);
 
-
+   
+function formatNumber(x) {
+   //return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); //copy pasted regex
+   return Number(x).toLocaleString();
+}
+   
 function findMatches(wordToMatch, cities) {
   return cities.filter(place => {
     // here we need to figure out if the city or state matches what was searched
-    const regex = new RegExp(wordToMatch, 'i');
+    const regex = new RegExp(wordToMatch, 'gi');
     return place.city.match(regex) || place.state.match(regex)
   });
 }
-function numberWithCommas(x) {
-  //return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); //copy pasted regex
-    return Number(x).toLocaleString();
-}
-
-function displayMatches() {
- // console.log('**filtered**');
-  const foundValueArr = findMatches(this.value, cities);
-  //console.log('foundValueArray', foundValueArr);
-  //todo: filter mateched array and out put
- if ( input ) {
-        suggestions.innerHTML = cities
-            .filter( ( city ) => matchesCity( city, input ) )
-            .map( ( city ) => itemizeCity( city, input ) )
-            .join( '' );
-
-        return;
-    }
-}
-  function findCurrCity( { city, state, population }, input ) {
-    return (
-        `<li>
-            <span>${highlight( city, input )}, ${highlight( state, input )}</span>
-            <span class="population">${population}</span>
-        </li>`
-    );
-}
-
-function highlight( text, input ) {
-    return text.replace( new RegExp( input, 'gi' ), ( match ) => `<span class="hl">${match}</span>` );
-}
-
-const searchInput = document.querySelector('#searchInput');
-console.log(searchInput);
-const suggestions = document.querySelector('#suggestions');
-searchInput.onkeydown = displayMatches;
-
-
-//Toso: test popuplation output after func. change
+    
 function displayMatches() {
   const matchArray = findMatches(this.value, cities);
-
-  const result = matchArray.map(place => {
-    const regex = new RegExp(this.value, 'gi'); //global ignorecase
-    const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
-    const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+    
+  //output matches result
+  const result = matchArray.map(place => { 
+      //removed high light; not needed , very slow down search.
     return `
       <li>
-        <span class="name"> ${stateName}, ${cityName}</span>
-        <span class="population">${numberWithCommas(place.population)}</span>
+        <span class="name"> ${place.state}, ${ place.city}</span>
+        <span class="population">${formatNumber(place.population)}</span>
       </li>
     `;
   }).join('');
   suggestions.innerHTML = result;
 }
+  
 
 </script>
 
