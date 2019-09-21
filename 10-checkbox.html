@@ -94,7 +94,7 @@
   function handleCheck(evt) {
 
     let inBetween = false;
-     if (evt.shiftKey && this.checked){
+     if (evt.shiftKey && this.checked && lastChecked !== this)){
          console.log('checked')
          lastChecked = this;
      }
