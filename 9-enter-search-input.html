@@ -100,12 +100,9 @@ let cities = [];
 
 (async function fetchCities(url) {
   let response = await fetch(url);
-  cities = await response.json(); 
-// console.log('fetched rows ', cities);
-    
+  cities = await response.json();  
     //add event listeners when forws are aloready fetched
-    const searchInput = document.querySelector('#searchInput');
-    console.log(searchInput);
+    const searchInput = document.querySelector('#searchInput'); 
     const suggestions = document.querySelector('#suggestions');
     searchInput.onkeydown = displayMatches;
     
@@ -126,8 +123,7 @@ function findMatches(wordToMatch, cities) {
 }
     
 function displayMatches() {
-  const matchArray = findMatches(this.value, cities);
-    
+  const matchArray = findMatches(this.value, cities); 
   //output matches result
   const result = matchArray.map(place => { 
       //removed high light; not needed , very slow down search.
@@ -141,7 +137,6 @@ function displayMatches() {
   suggestions.innerHTML = result;
 }
   
-
 </script>
 
 </body>
