@@ -42,6 +42,11 @@
       font-weight: 200;
       border-left: 1px solid #D1E2FF;
     }
+    .result{
+        margin-top: 50px;
+        min-height: 100px;
+        color: #eee;
+    }
   </style>
    <!--
    The following is a common layout you would see in an email client.
@@ -85,22 +90,38 @@
       <p>Don't forget to tweet your result!</p>
     </div>
   </div>
-
+<div id="result" class="result"></div>
 <script>
-  const checkboxes = document.querySelectorAll('.check');
+  const items = document.querySelectorAll('.item');
 
   var lastChecked;
 
   function handleCheck(evt) {
 
     let inBetween = false;
-     if (evt.shiftKey && this.checked && lastChecked !== this)){
-         console.log('checked')
-         lastChecked = this;
+    lastChecked = this;
+
+     if (evt.shiftKey && this.checked && lastChecked !== this){
+         console.log('checked', this);
+         items.forEach(item => {
+          console.log('current item',  item);
+         let checkbox = item.querySelector('.check')
+
+         if (item === this || item === lastChecked) {
+           inBetween = !inBetween;
+           console.log('Starting to check them in between!');
+         }
+         if (inBetween) {
+           checkbox.checked = true;
+         }
+       });
+
      }
 
+     console.log('checkboxes state', items)
+     document.getElementById('result').innerHTML = JSON.stringify(items);
   }
-  checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+  items.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
 </script>
 </body>
 </html>
