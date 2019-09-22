@@ -103,11 +103,11 @@
     checkbox.checked = true;
 
      if (evt.shiftKey && checkbox.checked && lastChecked !== this){
-         console.log('*****checked', item);
+        // console.log('*****checked', item);
 
          items.forEach(item => {
          console.log('each', checkbox);
-         if (item === lastChecked) {
+         if (item == this || item === lastChecked) {
            inBetween = !inBetween;
            console.log('Starting to check them in between!');
          }
@@ -119,8 +119,8 @@
 
      }
      lastChecked = item;
-     console.log('checkboxes state', items)
-     document.getElementById('result').innerHTML = JSON.stringify(items);
+    // console.log('checkboxes state', items)
+    // document.getElementById('result').innerHTML = JSON.stringify(items);
   }
   items.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
 </script>
