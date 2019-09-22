@@ -99,29 +99,29 @@
   function handleCheck(evt) {
 
     let inBetween = false;
-    lastChecked = this;
+
 
      if (evt.shiftKey && this.checked && lastChecked !== this){
          console.log('checked', this);
          items.forEach(item => {
           console.log('current item',  item);
          let checkbox = item.querySelector('.check')
-
-         if (item === this || item === lastChecked) {
-           inBetween = !inBetween;
-           console.log('Starting to check them in between!');
-         }
-         if (inBetween) {
+         alert(JSON.stringify(checkbox))
+        //  if (item === this || item === lastChecked) {
+        //    inBetween = !inBetween;
+        //    console.log('Starting to check them in between!');
+        //  }
+        //  if (inBetween) {
            checkbox.checked = true;
-         }
+         //}
        });
 
      }
-
+     lastChecked = this;
      console.log('checkboxes state', items)
      document.getElementById('result').innerHTML = JSON.stringify(items);
   }
-  items.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+  items.forEach(item => item.addEventListener('click', handleCheck));
 </script>
 </body>
 </html>
