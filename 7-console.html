@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>7 . Console</title>
+</head>
+<body>
+  <h1>Please, open console for viewing results</h1>
+
+  <p> Parent: <span>Child</span> </p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+    // warning!
+    console.warn('! warning');
+    // Error :|
+    console.error('this is not an err. This is example');
+
+    // Info
+    console.info('Be better software eng., K.');
+
+    // Testing
+    console.assert(document.getElementById("notfound"),
+    "Page has no element with ID 'nofound'");
+
+    // Viewing DOM Elements
+    const p = document.querySelector('p');
+    console.info('difference log and dir')
+    console.log('log p', p);
+    console.log('dir p');
+    console.dir(p);
+
+
+    // counting
+    console.log('counting');
+    console.count('1');
+    console.count('0');
+    console.count('1');
+    console.count('0');
+    console.log('end counting');
+    // timing
+    console.time('fetching commits');
+
+   fetch('https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits')
+    .then(response => response.json())
+    .then(commits =>  {
+        console.timeEnd('fetching commits');
+        console.table(commits);
+    }  );
+
+
+
+     //console.table([{'Land': 0, 'Mother': 1}, {'Tree': 1, 'isTok': 1, 'sTok': '2'}]);
+
+  </script>
+</body>
+</html>
