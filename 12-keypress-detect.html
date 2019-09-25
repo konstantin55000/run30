@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pass phraze keypress Detection</title>
+<style>
+body{
+    background: blue;
+    color: yellow;
+}
+</style>
+</head>
+<body>
+    <h1>Please look into console, as 3 previous lessons :)</h1>
+<script>
+const pressed = [];
+const secretCode = 'Better';
+window.addEventListener('keydown', (event) => {
+  console.log('Key was pressed: ', event.keyCode, event.key);
+  pressed.push(event.key);
+  //pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+
+  //!Detect only letters and numbers
+  //that is enough for code
+  if (event.keyCode <= 48  || event.keyCode >= 91 )
+  return;
+
+      if (pressed.join('').includes(secretCode)) {
+        console.log('! DONG DONG ! ', secretCode , ' Key code achieved!');
+        alert('! DONG DONG ! '+ secretCode + ' Pass phrase achieved!');
+      }
+
+    console.log('look for ',secretCode , 'in', pressed.join(''));
+
+
+
+});
+
+</script>
+</body>
+</html>
