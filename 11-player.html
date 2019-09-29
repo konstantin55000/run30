@@ -70,7 +70,7 @@ html {
     position: absolute;
     bottom:0;
     width: 100%;
-    transform: translateY(100%) translateY(-5px);
+    transform: translateY(100%) translateY(-100%); //height player always visible
     transition:all .3s;
     flex-wrap:wrap;
     background:rgba(0,0,0,0.1);
@@ -106,9 +106,7 @@ html {
     flex:0;
     flex-basis:0%;
   }
-
-  /* unholy css to style input type="range" */
-
+ /* input type range style*/
   input[type=range] {
     -webkit-appearance: none;
     background:transparent;
@@ -161,8 +159,7 @@ html {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HTML Video Player</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Video Player</title>
 </head>
 <body>
 
@@ -173,14 +170,12 @@ html {
        <div class="progress">
         <div class="progress__filled"></div>
        </div>
-       <button class="player__button toggle" title="Toggle Play">►</button>
+       <button class="player__button" id="btnPlay" title="Toggle Play">►</button>
        <input type="range" name="volume" class="player__slider" min="0" max="1" step="0.05" value="1">
        <button data-skip="-10" class="player__button">« 10s</button>
        <button data-skip="10" class="player__button">10s »</button>
      </div>
    </div>
-
-
 
 </body>
 </html>
@@ -192,10 +187,9 @@ document.addEventListener('DOMContentLoaded', function(){
     const video = player.querySelector('.viewer');
     const progress = player.querySelector('.progress');
     const progressBar = player.querySelector('.progress__filled');
-    const toggle = player.querySelector('.toggle');
+    const btnPlay = player.querySelector('#btnPlay');
     const skipButtons = player.querySelectorAll('[data-skip]');
     const ranges = player.querySelectorAll('.player__slider');
-
 
 
     function togglePlay() {
@@ -209,8 +203,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function updateButton() {
         const icon = this.paused ? '►' : '❚ ❚';
-        console.log(icon);
-        toggle.textContent = icon;
+        btnPlay.textContent = icon;
     }
 
     //skip buttons
@@ -218,6 +211,7 @@ document.addEventListener('DOMContentLoaded', function(){
         video.currentTime += parseFloat(this.dataset.skip); //how much it's going to skip back and forward
     }
 
+    //Very smart: get Name attrigute, and call emthod video.name (e.q) video.volume
     function handleRangeUpdate() {
         video[this.name] = this.value; //updating volume and/or playback rates
     }
@@ -228,35 +222,29 @@ document.addEventListener('DOMContentLoaded', function(){
         progressBar.style.flexBasis = `${percent}%`;
     }
 
-    // const percentFill = (video.currentTime / video.duration) * 100;
-    // progressBar.style.flexBasis = percentFill + '%';
-    //progress bar
-    ////2.when you click on it and drag it should update the video to correspond with that place
+
     function changeOffset(e) {
         const offsetTime = (e.offsetX / progress.offsetWidth) * video.duration;
         video.currentTime = offsetTime;
     }
 
-
-
-
     video.addEventListener('click', togglePlay); //click the video to play/pause
-    video.addEventListener('play', updateButton); //when the video is played run updateButton
-    video.addEventListener('pause', updateButton); //when the video is paused run updateButton
-    video.addEventListener('timeupdate', handleProgress); //listen for the video to emit an event called timeupdate and when that happens we run handleProgress function
+    video.addEventListener('play', updateButton); //when the video is played/paused run updateButton
+    video.addEventListener('pause', updateButton);
 
-    toggle.addEventListener('click', togglePlay);
+    video.addEventListener('timeupdate', handleProgress); //listen for the video to emit an event called timeupdate and when that happens we run handleProgress function
+    btnPlay.addEventListener('click', togglePlay);
+
     skipButtons.forEach(button => button.addEventListener('click', skip));
-    ranges.forEach(range => range.addEventListener('change', handleRangeUpdate)); //listen for a change event on each of those ranges
-    ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate));
+    ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));//listen for a change event on each of those ranges
+    //ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate)); //dont needed
 
 
     let mousemove = false;
     progress.addEventListener('click', changeOffset); //listen for a click -> when that happens run changeOffset function
-    progress.addEventListener('mousemove', (e) => mousedown && changeOffset(e));
-    progress.addEventListener('mousedown', () => mousedown = true);
-    progress.addEventListener('mouseup', () => mousedown = false);
+
 });
 
 
 </script>
+-
