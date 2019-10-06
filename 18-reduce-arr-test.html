@@ -1,0 +1,38 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Get sum of items, through reduce funct</title>
+</head>
+<body>
+  <ul class="videos">
+    <li data-time="3:46">
+      Video 3:46
+    </li>
+    <li data-time="5:25">
+      Video 5:25
+    </li>
+    <li data-time="3:14">
+      Video 3:14
+    </li>
+    <li data-time="3:31">
+      Video 3:31
+    </li>
+  </ul>
+<script>
+  const timeNodes = [...document.querySelectorAll('li[data-time]')];
+  console.log(timeNodes);
+  const secondsTotal = timeNodes
+    .map(node => node.dataset.time)
+    .map(timeCode => {
+      const [mins, secs] = timeCode.split(':').map(parseFloat); //why parse Int gives NaN result  on second value??
+      console.log('m, s', mins, secs)
+      return (mins * 60) + secs; //sum seconds
+    })
+    .reduce((currentSum, currentSecs) => currentSum + currentSecs); //returns int value
+    console.log('seconds', secondsTotal);
+    //make output hors min seconds
+    //console.log(hours, mins, seconds);
+</script>
+</body>
+</html>
