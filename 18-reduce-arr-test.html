@@ -25,12 +25,12 @@
   secondsTotal = timeNodes
     .map(node => node.dataset.time)
     .map( timeCode => {
-      const [mins, secs] = timeCode.split(':').map( (val) => {  return  [parseInt(val,10)] }); //why parse Int gives NaN result  on second value??
+      const [mins, secs] = timeCode.split(':').map( (val) => {return Number(val)} ); //why parse Int gives NaN result  on second value??
       console.log('m, s', mins, secs)
-      return (mins * 60) + secs; //sum seconds
+      return (mins * 60) + Number(secs); //total seconds 916
     })
     .reduce((currentSum, timeNodes) => currentSum + timeNodes); // todo check this line;
-    console.log('total seconds', secondsTotal);
+    console.log('total seconds', secondsTotal); //total seconds 916
     //make output hors min seconds
     //console.log(hours, mins, seconds);
 </script>
