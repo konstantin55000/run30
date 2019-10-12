@@ -25,7 +25,9 @@
     console.log('inventors init value:', inventors);
 
     const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Keysee, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Zerry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Amba, Tony', 'Blake, William'];
-    let fifteen = inventors.filter(item => (1700 <= item.year && item.year <= 1900));
+
+
+    let fifteen = inventors.filter(item => (1700 <= item.year <= 1900));
 
 //
 //    const fifteen = inventors.filter( (inventor) => {
@@ -34,46 +36,55 @@
 
     console.log('1700 till 1900  years: ', fifteen);
 
-    const fullNames = inventors.map((inventor) => {  return `${inventor.first} ${inventor.last}`});
+    const fullNames =  inventors.map((elem)=>{
+        return elem.first + ' ' +elem.last;
+    });
     console.log(' nventor.first + nventor.last', fullNames);
+    const totalYears = inventors.reduce((sum, elem)=>{
+        return sum + Number(elem.year);
+    }, 0); //init with 0
+     console.log('inv. total years:', totalYears);
+    //
+    // const oldest =
+    // console.log('older', oldest)
+    //
+    //
 
-    const totalYears = inventors.reduce((total, inventor) => {
-      return total + (inventor.passed - inventor.year);
-    }, 0);
-    console.log('inv. total years:', totalYears);
-
-    const oldest = inventors.sort(function(first, next) {
-      const lastInventor = first.passed - next.year;
-      const nextInventor = next.passed - first.year;
-      return (lastInventor > nextInventor ) ?  -1 : 1;
-    });
-    console.log('older', oldest)
-
-
-    const orderByYearAsc = (a, b) =>{
-      if (a.year > b.year) return 1;
-      if (a.year == b.year) return 0;
-      if (a.year < b.year) return -1;
+    function orderByField(field) {
+      return (a, b) => a[field] > b[field] ? 1 : -1;
     }
+    inventors.sort(orderByField('year'));
 
-    const orderedByYear = inventors.sort(orderByYearAsc);  //order
-    console.table('ordered by year', orderedByYear);
+    console.log('ordered by year', inventors  );
 
-    /* ******* people for First name arr sort ********/
 
-   const orderByLastName = people.sort((first, next) => {
-      const [aLast] = first.split(', ')[0];
-      const [bLast] = next.split(', ')[0];
+    /* ******* people for lastname arr sort ********/
+    // inventors.sort(function(a,b){
+    //     return a.last > b.last  ? 1 : -1
+    // });
+    inventors.sort(orderByField('last'));
+    console.log('sort by last name', inventors );
 
-      return aLast > bLast ? 1 : -1; //not working: todo need to check
-    });
-    console.log('sort by last name', orderByLastName);
 
 
    /* ******* arr reduce ********/
-      //@TODO: array reduce need re-doing
-
-      console.log('reduce transporte array', transport);
+   const data = ['pogost','car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck', 'pogost'];
+   let objTotal = {car: 0, walk: 0, truck: 0};
+   //@!toso: checkb
+   // const objectsReduced = data.reduce( (objTotal, item) => {
+   //     console.log(objTotal,'*')
+   //     if (!objTotal.hasOwnProperty(item ))
+   //          {objTotal[item] = 0;}
+   //      let arr = Object.keys(objTotal);
+   //      arr.forEach((key) => {
+   //          if (key == item)
+   //          objTotal[key] = objTotal[key] +1
+   //      });
+   //     ;;
+   //     console.log(item,objTotal);
+   //
+   // }, {});
+   console.log('reduce transporte array', objectsReduced);
     </script>
     <center><h1>Please open console for viewing results.</h1></center>
     </body>
