@@ -2,18 +2,24 @@
 <head>
   <meta charset="UTF-8">
   <title>Array Cardio Step 2</title>
+  <style>
+  body {
+      background: gray;
+      color: #fff;
+  }
+  </style>
 </head>
 <body>
   <h1>Please, check out console.</h1>
   <script>
-    
+
     const people = [
       { name: 'Wes', year: 1988 },
       { name: 'Kait', year: 2012 },
       { name: 'Irv', year: 1970 },
       { name: 'Lux', year: 2015 },
     ];
-    
+
    let comments = [
       { text: 'Love this!', id: 523423 },
       { text: 'Super good', id: 823423 },
@@ -21,27 +27,29 @@
       { text: 'Ramen is my fav food ever', id: 123523 },
       { text: 'Nice Nice Nice!', id: 542328 }
     ];
-    
-    const isAdult = people.some(person => ((new Date()).getFullYear()) - person.year >= 18);
-    console.log('is some one of array is adult', isAdult);
-      
-    const allAdults = people.every(person => ((new Date()).getFullYear()) - person.year >= 18);
-    console.log('is every item in array > 18 years? ', allAdults);
-      
-    
-    const comment = comments.find(comment => comment.id === 542328);
-    console.log('find obj in array by property: id  ', comment);
 
-     // Remove the comment with the ID of 823423
-    let index = 542328;
-      
-      
-    const arrIndex = comments.findIndex(comment => comment.id === 542328);
-    
-    console.log('comments before', comments, 'index to remove', arrIndex);  
-    comments.splice(index, 1); //remove elem
-    console.log('array alter:', comments)
-   
+    let  currentYear =  (new Date()).getFullYear();
+    const adultAge = 18;
+    const seekedCommentId = 823423;
+
+    const getYearDiffForPerson  = (currentYear, person) => {
+        return  ;
+    }
+
+    const isAdult = people.some(person => currentYear - person.year >= adultAge);
+    console.log('is some one of array is adult', isAdult);
+
+    const allAdults = people.every(person =>  currentYear - person.year >= adultAge);
+    console.log('is every item in array > '+adultAge+' years? ', allAdults);
+
+    const comment = comments.find(comment => comment.id === seekedCommentId);
+    console.log('find obj in array by property: id  ', comment);
+    const arrIndex = comments.findIndex(comment => comment.id === seekedCommentId);
+    console.log('comments before', comments, 'index to remove', arrIndex);
+
+    const removed = comments.splice(arrIndex, 1); //remove elem
+    console.log('comments after removing:', comments, 'removed: ', removed)
+
     </script>
     </body>
     </html>
