@@ -71,20 +71,18 @@
    const data = ['pogost','car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck', 'pogost'];
    let objTotal = {car: 0, walk: 0, truck: 0};
    //@!toso: checkb
-   // const objectsReduced = data.reduce( (objTotal, item) => {
-   //     console.log(objTotal,'*')
-   //     if (!objTotal.hasOwnProperty(item ))
-   //          {objTotal[item] = 0;}
-   //      let arr = Object.keys(objTotal);
-   //      arr.forEach((key) => {
-   //          if (key == item)
-   //          objTotal[key] = objTotal[key] +1
-   //      });
-   //     ;;
-   //     console.log(item,objTotal);
-   //
-   // }, {});
-   console.log('reduce transporte array', objectsReduced);
+   console.log('data', data);
+   const objectsReduced = data.reduce( (objTotal, item, data) => {
+      console.log('curr item', item, 'whole obj', objTotal);
+      if (typeof (objTotal[item]) === 'undefined'){
+          objTotal[item] = 0;
+      }
+      objTotal[item] = Number(objTotal[item]) + 1;
+        let arr = Object.keys(objTotal);
+        console.log('keys', arr);
+        return objTotal;
+   }, {});
+
     </script>
     <center><h1>Please open console for viewing results.</h1></center>
     </body>
