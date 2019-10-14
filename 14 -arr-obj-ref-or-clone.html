@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+<body>
+<h3>Please have a look into console</h3>
+  <script>
+
+    //@todo: make array copy working example
+
+     
+    const person = {
+      name: 'Wes Bos',
+      age: 80,
+      secondlevel: {a:'a', thirdLevel: {at: 'a'} }
+    };
+    // and think we make a copy:
+    // const captain = person;
+    // captain.number = 99;
+    // how do we take a copy instead?
+    const cap = Object.assign({}, person, { number: 99, age: 12 });
+    console.log('assign was is a person copied via obj assign ?', cap);
+
+    const wes = {
+      name: 'Wes',
+      age: 100,
+      social: {
+        twitter: {id: '@wesbos', url:'twitter.com', deep: {a:0}},
+        facebook: 'wesbos.developer'
+      }
+    };
+
+    console.log(wes);
+    const dev = Object.assign({}, wes);
+    console.log('try to deep copy via Object assign :',   'original', wes, 'copy', dev);
+
+    dev.age = 98;
+    const jsonCopy = JSON.parse(JSON.stringify(dev));
+    jsonCopy.age = 101;
+    console.log('JSON parse stringify copy', 'orig', dev,'copy', jsonCopy);
+
+
+
+  </script>
+
+</body>
+</html>
