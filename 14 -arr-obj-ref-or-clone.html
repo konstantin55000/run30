@@ -10,7 +10,7 @@
 
     //@todo: make array copy working example
 
-     
+
     const person = {
       name: 'Wes Bos',
       age: 80,
@@ -23,11 +23,13 @@
     const cap = Object.assign({}, person, { number: 99, age: 12 });
     console.log('assign was is a person copied via obj assign ?', cap);
 
-    const wes = {
+    var wes = {
       name: 'Wes',
       age: 100,
       social: {
-        twitter: {id: '@wesbos', url:'twitter.com', deep: {a:0}},
+        twitter: {id: '@wesbos', url:'twitter.com', deep: function() {
+        return this.name +' '+ this.age;
+      }},
         facebook: 'wesbos.developer'
       }
     };
@@ -37,9 +39,14 @@
     console.log('try to deep copy via Object assign :',   'original', wes, 'copy', dev);
 
     dev.age = 98;
-    const jsonCopy = JSON.parse(JSON.stringify(dev));
+
+    const jsonCopy = JSON.parse(JSON.stringify(wes));
     jsonCopy.age = 101;
-    console.log('JSON parse stringify copy', 'orig', dev,'copy', jsonCopy);
+
+
+    wes.age = 999999;
+        console.log('original was changed', wes, dev, jsonCopy);
+    console.log('JSON parse stringify copy', 'orig', wes,'copy', jsonCopy);
 
 
 
