@@ -5,12 +5,26 @@
   <title>JS Reference VS Copy</title>
 </head>
 <body>
-<h3>Please have a look into console</h3>
+<h3>Please have a look onto console</h3>
   <script>
 
-    //@todo: make array copy working example
+    let arrOriginal= [1,2,3];
+    let arrModified = Array.from(arrOriginal); //sposob
+    arrModified[1] = 22;
+    console.log('original', arrOriginal, 'modified', arrModified)
 
 
+    const arrModified2 = [].concat(arrModified);
+    arrModified2[1] = 21;
+
+    console.log('original', arrModified, 'modified', arrModified2, 'copy of modified', arrModified2.slice() );
+
+    let refArray = arrOriginal;
+    refArray[1] = 'changed';
+    console.log('need to be changed', 'original alredy changed', arrOriginal, refArray);
+
+
+    console.log('======= objects =====');
     const person = {
       name: 'Wes Bos',
       age: 80,
@@ -45,7 +59,11 @@
 
 
     wes.age = 999999;
-        console.log('original was changed', wes, dev, jsonCopy);
+
+    let dev3 = Object.assign({}, dev);
+    dev.age = 99999;
+    console.log('orig: dev age', dev.age, "copy dev3 age", dev3.age)
+     console.log('original was changed', wes, dev, jsonCopy);
     console.log('JSON parse stringify copy', 'orig', wes,'copy', jsonCopy);
 
 
