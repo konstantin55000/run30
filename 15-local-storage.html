@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>LocalStorage</title>
+  <title>Restoran orders, LocalStorage test</title>
   <style
   >
     html {
@@ -19,7 +19,7 @@
 }
 
 *, *:before, *:after {
-  box-sizing: inherit; 
+  box-sizing: inherit;
 }
 
 svg {
@@ -108,12 +108,14 @@ h2 {
   </div>
 
 <script>
-  //document.localStorage.clear();
-    
+
+
   const orderForm = document.querySelector('#form');
   const orders = document.querySelector('#orders_container');
-     
-  const itemsStorage = JSON.parse(localStorage.getItem('foodplate')) || [];
+  const itemsStorage = JSON.parse(localStorage.getItem('itemsStorage')) || [];
+
+  console.log('localStorage', localStorage.getItem('itemsStorage')) ;
+
   function addItem(e) {
     const form = this;
     e.preventDefault();
@@ -123,27 +125,44 @@ h2 {
       'text': text,
       'done': false
     };
-      
+
     itemsStorage.push(currOrder);
     populateList(itemsStorage, orders);
-    localStorage.setItem('foodplate', JSON.stringify(itemsStorage));
+    localStorage.setItem('itemsStorage', JSON.stringify(itemsStorage));
     form.reset();
     return false;
   }
   function populateList(items = [], itemsList) {
     let arr =  items.map((item, i) => {
       return `
-        <li>
+        <li  data-index=${i}>
           <input type="checkbox" data-index=${i} id="item${i}" ${item.done ? 'checked' : ''} />
-          <label for="item${i}">${item.text}</label>
+          <label  data-index=${i} for="item${i}">${item.text}</label>
         </li>
       `;
-    });    
+    });
     orders.innerHTML = arr.join('');
+
   }
-   
- 
-  orderForm.addEventListener('submit', addItem); 
+
+
+    function toggleDone(e) {
+
+      const el =  e.target;
+      if (el.matches('input[type="checkbox"]')) return;
+      //alert('el'+ el);
+      const index = el.dataset.index;
+      itemsStorage[index].done = !itemsStorage[index].done;
+
+      //console.log('itemsStorage', itemsStorage, 'orders', orders);
+      localStorage.setItem('itemsStorage', JSON.stringify(itemsStorage)); 
+      console.log('localStorage', localStorage.getItem('itemsStorage')) ;
+      //populateList(items, itemsStorage);
+    }
+
+  orderForm.onsubmit = addItem;
+  orders.onclick = toggleDone;
+
   populateList(itemsStorage, orders);
 </script>
 
