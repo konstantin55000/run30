@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding JavaScript's Bubling</title>
+</head>
+<body class="bod">
+Body, bubling last; capture first
+  <div class="first">
+      Please
+    <div class="second">
+      look on
+      <div class="inner third">
+           console (bubling first)
+      </div>
+    </div>
+  </div>
+
+<style>
+  html {
+    box-sizing: border-box;
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  div {
+    width: 100%;
+    padding: 100px;
+  }
+  .first {
+    background: thistle;
+  }
+  .second {
+    background: mistyrose;
+  }
+  .third {
+    background: coral;
+  }
+</style>
+
+
+<script>
+  const divs = document.querySelectorAll('div');
+
+  function logText(e) {
+
+    console.log(this);
+    console.log('-------------');
+    //e.stopPropagation(); // stop bubbling from three to first div, and up to body
+    // console.log(this);
+  }
+  divs.forEach(div => div.addEventListener('click', logText, {
+    capture: false, //if capture true; it will go deeper from document, body,  to most inner div.
+    once: false //if true click will happens only one
+  }));
+
+</script>
+</body>
+</html>
