@@ -29,7 +29,7 @@ scene.add( o );
 
     o.position.x = -4;
     o.position.y = 3;
-    o.position.z = 0;
+    o.position.z = 10;
 
    let planeGeometry = new THREE.PlaneGeometry(60, 20, 1, 1);
    let planeMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
@@ -45,9 +45,9 @@ scene.add( o );
     let light = new THREE.PointLight( 0xffffff, 1 );
     camera.add( light );
 
-   camera.position.x = -20;
-   camera.position.y = 40;
-  // camera.position.z = 16;
+   camera.position.x = -12;
+   camera.position.y = 10;
+  camera.position.z = 6;
    camera.lookAt(scene.position);
 
 
@@ -60,7 +60,7 @@ scene.add( o );
 function animate() {
 	requestAnimationFrame( animate );
     o.rotation.x += 0.01;
-    o.rotation.y += 0.01;
+    //o.rotation.y += 0.01;
     o.rotation.z += 0.01;
 	renderer.render( scene, camera );
 }
