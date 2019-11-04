@@ -11,22 +11,51 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js"></script>
 
 <script>
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+let scene = new THREE.Scene();
+let camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-var renderer = new THREE.WebGLRenderer();
+let renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.shadowMap.enabled = true;
 document.body.appendChild( renderer.domElement );
 
-var material = new THREE.MeshNormalMaterial(   );
-var geometry = new THREE.SphereGeometry(3, 50, 50, 0, Math.PI * 2, 0, Math.PI * 2);
+ window.addEventListener('resize', onResize, false);
 
-var o = new THREE.Mesh( geometry, material );
+let material = new THREE.MeshNormalMaterial(   );
+let geometry = new THREE.SphereGeometry(3, 50, 50, 0, Math.PI * 2, 0, Math.PI * 2);
+
+let o = new THREE.Mesh( geometry, material );
 scene.add( o );
-var light = new THREE.PointLight( 0xffffff, 1 );
-camera.add( light );
 
-camera.position.z = 10;
+    o.position.x = -4;
+    o.position.y = 3;
+    o.position.z = 0;
+
+   let planeGeometry = new THREE.PlaneGeometry(60, 20, 1, 1);
+   let planeMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
+   let plane = new THREE.Mesh(planeGeometry, planeMaterial);
+   plane.rotation.x = -0.5 * Math.PI;
+   plane.position.x = -8;
+   plane.position.y = 0;
+   plane.position.z = 0;
+  //scene.add(plane);
+
+
+
+    let light = new THREE.PointLight( 0xffffff, 1 );
+    camera.add( light );
+
+   camera.position.x = -20;
+   camera.position.y = 40;
+  // camera.position.z = 16;
+   camera.lookAt(scene.position);
+
+
+    function onResize() {
+           camera.aspect = window.innerWidth / window.innerHeight;
+           camera.updateProjectionMatrix();
+           renderer.setSize(window.innerWidth, window.innerHeight);
+       }
 
 function animate() {
 	requestAnimationFrame( animate );
