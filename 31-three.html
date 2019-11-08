@@ -5,9 +5,7 @@
   <title>O example</title>
 </head>
 <body class="bod">
-<style>
-
-</style>
+<div id="scene"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js"></script>
 
 <script>
@@ -27,35 +25,49 @@ let geometry = new THREE.SphereGeometry(3, 50, 50, 0, Math.PI * 2, 0, Math.PI * 
 let o = new THREE.Mesh( geometry, material );
 scene.add( o );
 
-    o.position.x = -4;
+    o.position.x = 4;
     o.position.y = 3;
-    o.position.z = 10;
+    o.position.z = 3;
 
    let planeGeometry = new THREE.PlaneGeometry(60, 20, 1, 1);
    let planeMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
+
    let plane = new THREE.Mesh(planeGeometry, planeMaterial);
+   plane.receiveShadow = true;
    plane.rotation.x = -0.5 * Math.PI;
    plane.position.x = -8;
    plane.position.y = 0;
    plane.position.z = 0;
-  //scene.add(plane);
+
+   scene.add(plane);
 
 
 
-    let light = new THREE.PointLight( 0xffffff, 1 );
-    camera.add( light );
+   let light = new THREE.PointLight( 0xffffff, 1 );
+   camera.add( light );
 
    camera.position.x = -12;
    camera.position.y = 10;
-  camera.position.z = 6;
+   camera.position.z = 6;
    camera.lookAt(scene.position);
 
+   var ambientLight = new THREE.AmbientLight(0x3c3c3c);
+   scene.add(ambientLight);
 
-    function onResize() {
+
+   var spotLight = new THREE.SpotLight(0xffffff, 1, 180, Math.PI/4);
+   spotLight.shadow.mapSize.height = 2048;
+   spotLight.shadow.mapSize.width = 2048;
+   spotLight.position.set(-40, 30, 30);
+   spotLight.castShadow = true;
+   scene.add(spotLight)
+
+  document.getElementById("scene").appendChild(renderer.domElement);
+   function onResize() {
            camera.aspect = window.innerWidth / window.innerHeight;
            camera.updateProjectionMatrix();
            renderer.setSize(window.innerWidth, window.innerHeight);
-       }
+   }
 
 function animate() {
 	requestAnimationFrame( animate );

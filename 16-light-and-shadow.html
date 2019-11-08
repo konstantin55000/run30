@@ -7,7 +7,7 @@
   html {
     color: #fff;
     font-family: sans-serif;
-    background: #ddd;
+    background: #3cec3c;
   }
   body {
     margin: 0;
@@ -20,7 +20,7 @@
 
   }
   .shadow {
-    text-shadow: 10px 10px 0 rgba(0,0,0,0.7);
+    text-shadow: 10px 10px 0 rgba(0,0,0,0.6);
     font-size: 100px;
   }
   </style>
@@ -29,7 +29,7 @@
 <body>
 
   <div class="hero" id="hero">
-    <h3 id="shadow" class="shadow">While sun brights on you,
+    <h3 id="shadow" class="shadow">While sun brights from you,
         shadow is always behind you.</h3>
   </div>
 
@@ -42,21 +42,16 @@
   function shadow(e) {
     const { offsetWidth: width, offsetHeight: height } = hero;
     let { offsetX: x, offsetY: y } = e;
-    if (this !== e.target) {
-      x = x + e.target.offsetLeft;
-      y = y + e.target.offsetTop;
-    }
-    //@todo: check this code.
-    const xWalk = Math.round((x / width * walk) - (walk / 2));
-    const yWalk = Math.round((y / height * walk) - (walk / 2));
+    let divider = 12;
+    const xWalk = Math.round((x / width * walk) - (walk / 2)) / divider;
+    const yWalk = Math.round((y / height * walk) - (walk / 2)) / divider ;
+
     text.style.textShadow = `
-      ${xWalk}px ${yWalk}px 0 rgba(0,0,0,0.1),
-      ${xWalk * -1}px ${yWalk}px 0 rgba(0,0,0,0.25),
       ${yWalk}px ${xWalk * -1}px 0 rgba(0,0,0,0.3),
-      ${yWalk * -1}px ${xWalk}px 0 rgba(0,0,0,0.4)
+      ${yWalk  * -1}px ${xWalk}px 0 rgba(0,0,0,0.3)
     `;
   }
-  hero.addEventListener('mousemove', shadow);
+  text.addEventListener('mousemove', shadow);
 </script>
 </body>
 </html>
