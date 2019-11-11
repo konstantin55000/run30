@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>White bar Follow on hover</title>
+  <style>
+
+  body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: Helvetica,sans-serif;
+    background:
+      linear-gradient(45deg, hsla(340, 100%, 55%, 1) 0%, hsla(340, 100%, 55%, 0) 70%),
+      linear-gradient(135deg, hsla(225, 95%, 50%, 1) 10%, hsla(225, 95%, 50%, 0) 80%),
+      linear-gradient(225deg, hsla(140, 90%, 50%, 1) 10%, hsla(140, 90%, 50%, 0) 80%),
+      linear-gradient(315deg, hsla(35, 95%, 55%, 1) 100%, hsla(35, 95%, 55%, 0) 70%);
+  }
+
+  .wrapper {
+    margin: 0 auto;
+    min-width: 500px;
+    font-size: 20px;
+    line-height: 2;
+    position: relative;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+    background: rgba(0,0,0,0.05);
+    border-radius: 20px;
+  }
+
+  .highlight {
+    transition: all 0.2s;
+    border-bottom: 2px solid white;
+    position: absolute;
+    top: 0;
+    background: white;
+    left: 0;
+    z-index: -1;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  }
+
+  .menu {
+    padding: 0;
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    margin:50px 0;
+  }
+
+  .menu a {
+    display: inline-block;
+    padding: 5px;
+    margin: 0 20px;
+    color: black;
+  }
+
+  </style>
+</head>
+<body>
+
+    <nav>
+      <ul class="menu">
+        <li><a href="">Home</a></li>
+        <li><a href="">Order Status</a></li>
+        <li><a href="">Tweets</a></li>
+        <li><a href="">Read Our History</a></li>
+        <li><a href="">Contact Us</a></li>
+      </ul>
+    </nav>
+    <div id="highlight" class="highlight" style="display:none"></div>
+    <div class="wrapper" >
+
+    </div>
+
+<script>
+  const triggers = document.querySelectorAll('.menu li a');
+  const highlight = document.getElementById('highlight') ;
+  highlight.style.display="block";
+  function highlightLink() {
+    const linkCoords = this.getBoundingClientRect();
+    console.log(linkCoords);
+    const position = {
+      top: linkCoords.top + window.scrollY,
+      left: linkCoords.left + window.scrollX
+    };
+    highlight.style.width = `${linkCoords.width}px`;
+    highlight.style.height = `${linkCoords.height}px`;
+    highlight.style.transform = `translate(${position.left}px, ${position.top}px)`;
+  }
+  triggers.forEach(a => a.addEventListener('mouseenter', highlightLink));
+</script>
+</body>
+</html>
