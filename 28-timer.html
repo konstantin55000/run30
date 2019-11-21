@@ -11,35 +11,27 @@
 <body>
   <div class="timer">
   <h1>Please look into console:</h1>
-<!--
-    <div class="timer__controls">
-      <button data-time="20" class="timer__button">20 Secs</button>
-      <button data-time="300" class="timer__button">Work 5</button>
-      <button data-time="900" class="timer__button">Quick 15</button>
-      <button data-time="1200" class="timer__button">Snack 20</button>
-      <button data-time="3600" class="timer__button">Lunch Break</button>
-      <form name="customForm" id="custom">
-        <input type="text" name="minutes" placeholder="Enter Minutes">
-      </form>
+    
+      <div class="display">
+      <h1 id="time-left" class="display__time-left"></h1>
+<!--      <p class="display__end-time"></p>-->
     </div>
-    <div class="display">
-      <h1 class="display__time-left"></h1>
-      <p class="display__end-time"></p>
-    </div>
--->
+ 
   </div>
 
   <script>
     
   let countdown;
+  const timerDisplay = document.getElementById('time-left');
  
-
 function timer(seconds) {
   // clear any existing timers
   clearInterval(countdown);
 
   const now = Date.now();
   const then = now + seconds * 1000;
+  
+  displayTimeLeft(seconds);
   console.log('left time for alert ring :', seconds);
     
   const thenDate = new Date(then);    
@@ -56,7 +48,8 @@ function timer(seconds) {
       return;
     }
     
-    console.log('left sec. for timer', secondsLeft);
+    //console.log('left sec. for timer', secondsLeft);
+    displayTimeLeft(secondsLeft);
   }, 1000);
 }
  
@@ -64,6 +57,12 @@ let mins = 38;
 alert('start timer on '+ mins + 'minutes');
 timer(mins * 60); //set timer on one minute  
     
+function displayTimeLeft(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainderSeconds = seconds % 60;
+  const output = `${minutes}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;   
+  timerDisplay.textContent = output;
+}
 </script>
 </body>
 </html>
