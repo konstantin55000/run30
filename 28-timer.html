@@ -4,17 +4,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Countdown Timer</title>
+  <title>The timer</title>
   <link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="timer">
-  <h1>Please look into console:</h1>
+  <h1>Choose time to start</h1>
+  <div>
+      <label for="hours">Hours:</label>
+      <input type="range" value="0" id="end-hours" min="0" max="23"/>
+  </div>
     
-      <div class="display">
-      <h1 id="time-left" class="display__time-left"></h1>
-<!--      <p class="display__end-time"></p>-->
+    <div>
+    <label for="minutes">Minutes:</label>
+     <input type="range" value="1" id="end-minutes" min="0" max="59"/>      
+     
+     <div>
+    
+    <div class="display">
+      
+     <h1 id="time-left" class="display__time-left"></h1>
+
+     <p class="display__end-time">Will ring at: <span id="end-time">00:00</span></p> 
+     <p class="display__buttons" >
+      <button id='reset-timer'>Reset</button>
+     </p>
     </div>
  
   </div>
@@ -23,7 +38,9 @@
     
   let countdown;
   const timerDisplay = document.getElementById('time-left');
- 
+  const inputs = document.querySelectorAll('input');
+  const reset = document.getElementById('reset-timer');
+  const endTime = document.getElementById('end-time');
 function timer(seconds) {
   // clear any existing timers
   clearInterval(countdown);
@@ -32,6 +49,7 @@ function timer(seconds) {
   const then = now + seconds * 1000;
   
   displayTimeLeft(seconds);
+  displayEndTime(then);
   console.log('left time for alert ring :', seconds);
     
   const thenDate = new Date(then);    
@@ -53,9 +71,7 @@ function timer(seconds) {
   }, 1000);
 }
  
-let mins = 38; 
-alert('start timer on '+ mins + 'minutes');
-timer(mins * 60); //set timer on one minute  
+  
     
 function displayTimeLeft(seconds) {
   const minutes = Math.floor(seconds / 60);
@@ -63,6 +79,26 @@ function displayTimeLeft(seconds) {
   const output = `${minutes}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;   
   timerDisplay.textContent = output;
 }
+
+function displayEndTime(timestamp) {
+  const end = new Date(timestamp);
+  const hour = end.getHours();
+  const adjustedHour = hour > 12 ? hour - 12 : hour;   //const adjustedHour = hour % 12;
+  const minutes = end.getMinutes();
+  endTime.textContent = `${adjustedHour}:${minutes < 10 ? '0' : ''}${minutes}`;
+}
+
+function startTimer() {
+  const hours = parseInt(document.getElementById('end-hours').value);
+  const minutes = parseInt(document.getElementById('end-minutes').value);
+  const seconds = (hours * 60 * 60) + (minutes * 60); 
+  console.log('sec', seconds);
+  timer(seconds);
+}
+ 
+inputs.forEach(input => input.addEventListener('change', startTimer));
+ 
+reset.addEventListener('click', ()=>{  clearInterval(countdown); inputs.forEach(input => input.value = '0');   });
 </script>
 </body>
 </html>
