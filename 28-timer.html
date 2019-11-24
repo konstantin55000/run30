@@ -12,12 +12,12 @@
   <div class="timer">
   <h1>Choose time to start</h1>
   <div>
-      <label for="hours">Hours:</label>
+      <label for="hours">Hours: <span id="display-hours"></span></label>
       <input type="range" value="0" id="end-hours" min="0" max="23"/>
   </div>
     
     <div>
-    <label for="minutes">Minutes:</label>
+    <label for="minutes">Minutes: <span id="display-minutes"></span></label>
      <input type="range" value="1" id="end-minutes" min="0" max="59"/>      
      
      <div>
@@ -89,8 +89,12 @@ function displayEndTime(timestamp) {
 }
 
 function startTimer() {
-  const hours = parseInt(document.getElementById('end-hours').value);
+  let hours = parseInt(document.getElementById('end-hours').value);
   const minutes = parseInt(document.getElementById('end-minutes').value);
+document.getElementById('display-hours').innerText = hours;
+document.getElementById('display-minutes').innerText = minutes;
+  //display current time
+  hours = hours > 1 ? hours - 1: hours;
   const seconds = (hours * 60 * 60) + (minutes * 60); 
   console.log('sec', seconds);
   timer(seconds);
@@ -98,7 +102,7 @@ function startTimer() {
  
 inputs.forEach(input => input.addEventListener('change', startTimer));
  
-reset.addEventListener('click', ()=>{  clearInterval(countdown); inputs.forEach(input => input.value = '0');   });
+reset.addEventListener('click', ()=>{ clearInterval(countdown); inputs.forEach(input => input.value = '0');   });
 </script>
 </body>
 </html>
